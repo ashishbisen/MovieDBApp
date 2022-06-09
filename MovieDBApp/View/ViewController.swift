@@ -51,9 +51,19 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell: TableViewCell = tableView.dequeueReusableCell(withIdentifier: Identifier.TableViewCell.rawValue) as? TableViewCell , let type = MovieType(rawValue: indexPath.row) {
-            guard let movie = popularMovie else { return UITableViewCell()}
-            cell.configureCell(type: type, movie: movie)
-            return cell
+            switch type {
+            case .popular:
+                guard let movie = popularMovie else { return UITableViewCell()}
+                //cell.configureCell(type: type, movie: movie)
+                cell.configureCell(type: type, popularMovie: movie, upcomingMovie: nil)
+                return cell
+            case .upcoming:
+                guard let movie = upcomingMovie else { return UITableViewCell()}
+                cell.configureCell(type: type, popularMovie: nil, upcomingMovie: movie)
+                //cell.configureCell(type: type, movie: movie)
+                return cell
+            }
+           
         }
         return UITableViewCell()
     }

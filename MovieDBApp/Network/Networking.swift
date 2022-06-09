@@ -51,30 +51,18 @@ extension Method: CustomStringConvertible {
 protocol Requestable {}
 
 extension Requestable {
-    internal func getRequest(url: String, callback: @escaping (_ json: NSDictionary?) -> ()) {
-        do {
-            try request(method: .get, url: url, params: nil) { (dict) in
-                //callback(dict)
-            }
-        } catch {
-            callback(nil)
-        }
-    }
 
     internal func request(method: Method, url: String, params: [NSString: Any]? = nil, callback: @escaping Handler) {
-
         guard let url = URL(string: url) else {
             return
         }
-        
         let task = URLSession.shared.dataTask(with: url,  completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error.localizedDescription)
                 } else if let httpResponse = response as? HTTPURLResponse {
                     if httpResponse.statusCode == 200 {
-                        let mappedModel = try? JSONDecoder().decode(PopularMovieResponseModel.self, from: data!)
-                        if mappedModel != nil {
+                        if data != nil {
                             callback(.success(data!))
                         } else {
                             callback(.failure(true))

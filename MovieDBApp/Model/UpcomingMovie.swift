@@ -10,13 +10,15 @@ import Foundation
 
 // MARK: - UpcomingMovie
 struct UpcomingMovieResponseModel: Codable {
-    let dates: Dates
-    let page: Int
-    let moviewResults: [UpcomingMovie]
-    let totalPages, totalResults: Int
+    let dates: Dates?
+    let page: Int?
+    let moviewResults: [UpcomingMovie]?
+    let totalPages, totalResults: Int?
 
     enum CodingKeys: String, CodingKey {
-        case dates, page, moviewResults
+        case dates = "dates"
+        case page = "page"
+        case moviewResults = "results"
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
@@ -42,16 +44,17 @@ struct UpcomingMovie: Codable {
     let voteCount: Int?
 
     enum CodingKeys: String, CodingKey {
-        case adult
+        case adult = "adult"
         case backdropPath = "backdrop_path"
         case genreIDS = "genre_ids"
-        case id
+        case id = "id"
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview, popularity
         case posterPath = "poster_path"
         case releaseDate = "release_date"
-        case title, video
+        case title = "title"
+        case video = "video"
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }

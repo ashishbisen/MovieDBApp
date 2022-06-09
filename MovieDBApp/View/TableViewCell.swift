@@ -13,7 +13,8 @@ class TableViewCell: UITableViewCell {
     private var movieType: MovieType = .popular
     
     
-    var movieItem: [PopularMovie]?
+    var popularMovieItem: [PopularMovie]?
+    var upcomingMovieItem: [UpcomingMovie]?
     
     private let titleLabel : UILabel =  {
         let label = UILabel()
@@ -68,10 +69,11 @@ class TableViewCell: UITableViewCell {
         stackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 70, enableInsets: false)
     }
     
-    func configureCell(type: MovieType , movie: [PopularMovie]) {
+    func configureCell(type: MovieType , popularMovie: [PopularMovie]? ,upcomingMovie: [UpcomingMovie]? ) {
         titleLabel.text = String(type.rawValue)
         movieType = type
-        movieItem = movie
+        popularMovieItem = popularMovie
+        upcomingMovieItem = upcomingMovie
         collectionView.reloadData()
     }
     
@@ -87,14 +89,14 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch movieType {
         case .popular:
-            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.CollectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = movieItem?[indexPath.row].posterPath {
+            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.CollectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = popularMovieItem?[indexPath.row].posterPath {
                 cell.configureCell(path: imagePath)
                 return cell
             }
             return UICollectionViewCell()
             
         case .upcoming:
-            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.CollectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = movieItem?[indexPath.row].posterPath {
+            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.CollectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = upcomingMovieItem?[indexPath.row].posterPath {
                 cell.configureCell(path: imagePath)
                 return cell
             }
@@ -105,9 +107,9 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch movieType {
         case .popular:
-            return movieItem?.count ?? 0
+            return popularMovieItem?.count ?? 0
         case .upcoming:
-            return movieItem?.count ?? 0
+            return upcomingMovieItem?.count ?? 0
     }
     }
     
