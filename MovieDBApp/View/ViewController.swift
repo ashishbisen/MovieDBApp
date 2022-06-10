@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var upcomingMovie: [UpcomingMovie]?
     let tableView = UITableView()
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchPopularMovieList()
@@ -54,16 +54,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             switch type {
             case .popular:
                 guard let movie = popularMovie else { return UITableViewCell()}
-                //cell.configureCell(type: type, movie: movie)
-                cell.configureCell(type: type, popularMovie: movie, upcomingMovie: nil)
+                cell.configureCell(type: type, movieCategory: MovieCategory.popular.rawValue, popularMovie: movie, upcomingMovie: nil)
                 return cell
             case .upcoming:
                 guard let movie = upcomingMovie else { return UITableViewCell()}
-                cell.configureCell(type: type, popularMovie: nil, upcomingMovie: movie)
-                //cell.configureCell(type: type, movie: movie)
+                cell.configureCell(type: type, movieCategory: MovieCategory.upcoming.rawValue, popularMovie: nil, upcomingMovie: movie)
                 return cell
             }
-           
+            
         }
         return UITableViewCell()
     }

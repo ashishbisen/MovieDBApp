@@ -90,6 +90,10 @@ enum OriginalLanguage: String, Codable {
 enum MovieType: Int, CaseIterable {
     case popular
     case upcoming
-//    case popular     = "Popular Movies"
-//    case upcoming    = "Upcoming Movies"
-    }
+    
+}
+
+enum MovieCategory: String {
+case popular     = "Popular Movies"
+case upcoming    = "Upcoming Movies"
+}
