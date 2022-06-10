@@ -14,7 +14,7 @@ struct UpcomingMovieResponseModel: Codable {
     let page: Int?
     let moviewResults: [UpcomingMovie]?
     let totalPages, totalResults: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case dates = "dates"
         case page = "page"
@@ -42,7 +42,7 @@ struct UpcomingMovie: Codable {
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case adult = "adult"
         case backdropPath = "backdrop_path"

@@ -9,7 +9,7 @@ import Foundation
 
 protocol UpcomingMovieViewModelProtocol {
     
-func didReceiveUpcomingMovieList(response: [UpcomingMovie]?)
+    func didReceiveUpcomingMovieList(response: [UpcomingMovie]?)
 }
 
 class UpcomingMovieViewModel {

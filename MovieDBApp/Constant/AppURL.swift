@@ -7,11 +7,10 @@
 
 import UIKit
 
-
 struct Domain {
     static let dev = "http://api.themoviedb.org/"
     static let assest = "https://image.tmdb.org/t/p/w500"
-
+    
 }
 
 extension Domain {

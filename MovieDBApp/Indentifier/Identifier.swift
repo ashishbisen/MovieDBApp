@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import UIKit
-
 
 enum Identifier: String {
     case tableViewCell             =  "TableViewCell"
@@ -18,6 +16,13 @@ enum APPName: String {
     case appName = "MovieDBApp"
 }
 
+enum UserdefaultKey: String {
+    case path = "imagepath"
+    case description = "description"
+}
 
+enum ImageName: String {
+    case back = "back.png"
+}
 
 
