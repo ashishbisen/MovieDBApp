@@ -1,6 +1,6 @@
 //
-//  SampleTableViewCell.swift
-//  SampleApp
+//  TableViewCell.swift
+//  MovieDBApp
 //
 //  Created by CEPL on 31/05/22.
 //
