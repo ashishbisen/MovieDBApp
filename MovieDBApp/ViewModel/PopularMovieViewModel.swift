@@ -7,17 +7,14 @@
 
 import Foundation
 
-
-
 protocol PopularMovieViewModelProtocol {
-
+    
     func didReceivePopularMovieList(response: [PopularMovie]?)
 }
 
 class PopularMovieViewModel {
-
-    //MARK: - Internal Properties
     
+    //MARK: - Internal Properties
     var delegate: PopularMovieViewModelProtocol?
     
     func fetchPopularMovieList() {

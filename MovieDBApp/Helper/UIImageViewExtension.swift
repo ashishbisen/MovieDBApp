@@ -1,9 +1,8 @@
 //
-//  MovieViewController.swift
-//  MVVMDemo
+//  UIImageViewExtension.swift
+//  MovieDBApp
 //
-//  Created by Shantaram K on 20/03/19.
-//  Copyright © 2019 Shantaram K. All rights reserved.
+//  Created by CEPL on 10/06/22.
 //
 
 import UIKit
@@ -19,20 +18,18 @@ enum ImageSize {
 
 extension UIImageView {
     
-
+    
     func setImage(withImageId imageId: String, placeholderImage: UIImage?, size: ImageSize = .original) {
         
         let baseURL = Domain.assest
-        
         var urlString: String!
-        
         if size == .thumbnail {
             urlString = String(format: "%@thumbnail_%@", baseURL, imageId)
         } else {
             urlString = String(format: "%@%@", baseURL, imageId)
         }
         cacheImage(urlString: urlString, placeholder: placeholderImage)
-       
+        
     }
     
     var activityIndicator: UIActivityIndicatorView! {
@@ -76,7 +73,7 @@ extension UIImageView {
         
         if let imageFromCache = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
             self.image = imageFromCache
-             self.hideActivityIndicator()
+            self.hideActivityIndicator()
             return
         }
         
@@ -98,9 +95,9 @@ extension UIImageView {
                         imageCache.setObject(imageToCache!, forKey: urlString as AnyObject)
                         self.image = imageToCache
                     }
-                     self.hideActivityIndicator()
+                    self.hideActivityIndicator()
                 }
             }
-            }.resume()
+        }.resume()
     }
 }

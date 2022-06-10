@@ -11,10 +11,6 @@ class CollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-       // imageView.layer.cornerRadius = 30
-        //imageView.clipsToBounds = true
-        //imageView.layer.borderColor = UIColor.clear.cgColor
         return imageView
     }()
     
@@ -55,7 +51,6 @@ class CollectionViewCell: UICollectionViewCell {
         
         contentView.addSubview(verticalStackView)
         verticalStackView.frame = contentView.bounds
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

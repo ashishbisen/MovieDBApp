@@ -12,15 +12,14 @@ class TableViewCell: UITableViewCell {
     private var title = ""
     private var movieType: MovieType = .popular
     
-    
-    var popularMovieItem: [PopularMovie]?
-    var upcomingMovieItem: [UpcomingMovie]?
+    private var popularMovieItem: [PopularMovie]?
+    private var upcomingMovieItem: [UpcomingMovie]?
     
     private let titleLabel : UILabel =  {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         label.textAlignment = .left
-        label.textColor = .gray
+        label.textColor = .darkGray
         return label
         
     }()
@@ -32,6 +31,8 @@ class TableViewCell: UITableViewCell {
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.showsHorizontalScrollIndicator = false
+    
         return collection
     }()
     
@@ -44,8 +45,9 @@ class TableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Initialize tableviewcell
     private func initializeView() {
-        //MARK: REgister CollectionViewcell inside TableView
+        
         registerNibs()
         
         collectionView.delegate = self
@@ -63,13 +65,14 @@ class TableViewCell: UITableViewCell {
         
         //MARK: set Programatically constaraints
         
-        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 24, enableInsets: false)
+        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 24, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 24, enableInsets: false)
         collectionView.anchor(top: titleLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 24, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 70, enableInsets: false)
         
         stackView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 70, enableInsets: false)
     }
     
     func configureCell(type: MovieType, movieCategory: String, popularMovie: [PopularMovie]? ,upcomingMovie: [UpcomingMovie]? ) {
+        
         titleLabel.text = movieCategory
         movieType = type
         popularMovieItem = popularMovie
@@ -77,26 +80,26 @@ class TableViewCell: UITableViewCell {
         collectionView.reloadData()
     }
     
-    func registerNibs() {
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.CollectionViewCell.rawValue)
+    private func registerNibs() {
+        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: Identifier.collectionViewCell.rawValue)
     }
 }
 
-//MARK: CollectionView functions
+//MARK: CollectionView DataSource
 
-extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension TableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch movieType {
         case .popular:
-            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.CollectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = popularMovieItem?[indexPath.row].posterPath, let movieTitle = popularMovieItem?[indexPath.row].title {
+            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = popularMovieItem?[indexPath.row].posterPath, let movieTitle = popularMovieItem?[indexPath.row].title {
                 cell.configureCell(path: imagePath, title: movieTitle)
                 return cell
             }
             return UICollectionViewCell()
             
         case .upcoming:
-            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.CollectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = upcomingMovieItem?[indexPath.row].posterPath, let movieTitle = upcomingMovieItem?[indexPath.row].title{
+            if let cell: CollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: Identifier.collectionViewCell.rawValue, for: indexPath) as? CollectionViewCell, let imagePath = upcomingMovieItem?[indexPath.row].posterPath, let movieTitle = upcomingMovieItem?[indexPath.row].title{
                 cell.configureCell(path: imagePath, title: movieTitle)
                 return cell
             }
@@ -112,6 +115,11 @@ extension TableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, U
             return upcomingMovieItem?.count ?? 0
         }
     }
+}
+
+//MARK: CollectionView Delegate
+
+extension TableViewCell: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

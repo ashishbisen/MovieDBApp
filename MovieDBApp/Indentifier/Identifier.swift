@@ -1,8 +1,8 @@
 //
-//  CommonStrings.swift
-//  SampleApp
+//  Identifier.swift
+//  MovieDBApp
 //
-//  Created by CEPL on 31/05/22.
+//  Created by CEPL on 09/06/22.
 //
 
 import Foundation
@@ -10,8 +10,12 @@ import UIKit
 
 
 enum Identifier: String {
-    case TableViewCell             =  "TableViewCell"
-    case CollectionViewCell        =  "CollectionViewCell"
+    case tableViewCell             =  "TableViewCell"
+    case collectionViewCell        =  "CollectionViewCell"
+}
+
+enum APPName: String {
+    case appName = "MovieDBApp"
 }
 
 

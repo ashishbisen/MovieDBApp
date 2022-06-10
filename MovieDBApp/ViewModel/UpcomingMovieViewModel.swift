@@ -9,7 +9,7 @@ import Foundation
 
 protocol UpcomingMovieViewModelProtocol {
     
-    func didReceiveUpcomingMovieList(response: [UpcomingMovie]?)
+func didReceiveUpcomingMovieList(response: [UpcomingMovie]?)
 }
 
 class UpcomingMovieViewModel {
@@ -24,7 +24,6 @@ class UpcomingMovieViewModel {
             switch result {
             case .success(let data):
                 let mappedModel = try? JSONDecoder().decode(UpcomingMovieResponseModel.self, from: data) as UpcomingMovieResponseModel
-                print("MOVIE APP: UPCOMING\(mappedModel?.moviewResults?.count)")
                 self.delegate?.didReceiveUpcomingMovieList(response: mappedModel?.moviewResults)
                 break
             case .failure(let error):

@@ -23,7 +23,6 @@ class MovieAPIService: NSObject, Requestable {
     
     func fetchUpcomingMovies(callback: @escaping Handler) {
         request(method: .get, url: Domain.baseUrl() + APIEndpoint.upcomingMovies) { (result) in
-            print("CALLING API: TIMES  \(result)")
            callback(result)
         }
     }
