@@ -1,6 +1,6 @@
 //
-//  SampleBooksCollectionViewCell.swift
-//  SampleApp
+//  CollectionViewCell.swift
+//  MovieDBApp
 //
 //  Created by CEPL on 31/05/22.
 //
