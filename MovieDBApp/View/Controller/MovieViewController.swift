@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MovieViewController.swift
 //  MovieDBApp
 //
 //  Created by CEPL on 09/06/22.
