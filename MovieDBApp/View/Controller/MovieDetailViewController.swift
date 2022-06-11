@@ -21,14 +21,24 @@ class MovieDetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private let label: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textAlignment = .left
+        label.textColor = .gray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
+        label.textAlignment = .center
         label.textColor = .gray
         return label
     }()
@@ -43,6 +53,7 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureView()
         setMovieData()
     }
@@ -58,15 +69,13 @@ class MovieDetailViewController: UIViewController {
     
     private func configureView() {
         
-        view.addSubview(verticalStackView)
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        verticalStackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 54, paddingLeft: 16, paddingBottom: 16, paddingRight: 16, width: view.frame.size.width, height: view.frame.size.height, enableInsets: false)
-        
         view.backgroundColor = .white
-        backButton.frame = CGRect(x: 8, y: 16, width: 30, height: 30)
-        view.addSubview(backButton)
-        backButton.addTarget(self, action: #selector(goBackToMovieListViewController), for: .touchUpInside)
-        view.bringSubviewToFront(backButton)
+        view.addSubview(verticalStackView)
+        addBackButton()
+        addTitleLabel()
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        verticalStackView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: calculateSafeAreaHeight() + backButton.frame.height + 16, paddingLeft: 16, paddingBottom: calculateSafeAreaHeight(), paddingRight: 16, width: screenWidth, height: screenHeight - calculateSafeAreaHeight(), enableInsets: false)
     }
     
     private func setMovieData() {
@@ -75,4 +84,21 @@ class MovieDetailViewController: UIViewController {
         imageView.setImage(withImageId: imagePath as? String ?? "", placeholderImage: nil, size: .original)
         label.text = overview as? String
     }
+    
+    private func addBackButton() {
+        
+        backButton.frame = CGRect(x: 8, y: calculateSafeAreaHeight(), width: 30, height: 30)
+        view.addSubview(backButton)
+        backButton.addTarget(self, action: #selector(goBackToMovieListViewController), for: .touchUpInside)
+        view.bringSubviewToFront(backButton)
+    }
+    
+    private func addTitleLabel() {
+        
+        titleLabel.frame = CGRect(x: 8, y: calculateSafeAreaHeight() , width: 200, height: 30)
+        titleLabel.center.x = view.center.x
+        titleLabel.text = Header.movieDetail.rawValue
+        view.addSubview(titleLabel)
+    }
 }
+

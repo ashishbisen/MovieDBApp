@@ -12,8 +12,9 @@ enum Identifier: String {
     case collectionViewCell        =  "CollectionViewCell"
 }
 
-enum APPName: String {
+enum Header: String {
     case appName = "MovieDBApp"
+    case movieDetail = "Movie Detail"
 }
 
 enum UserdefaultKey: String {

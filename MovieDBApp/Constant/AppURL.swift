@@ -52,3 +52,22 @@ enum UploadType: String {
     case avatar
     case file
 }
+
+// Screen width.
+public var screenWidth: CGFloat {
+    return UIScreen.main.bounds.width
+}
+
+// Screen height.
+public var screenHeight: CGFloat {
+    return UIScreen.main.bounds.height
+}
+
+// Function
+
+public func calculateSafeAreaHeight() -> CGFloat {
+    let window = UIApplication.shared.keyWindow
+    let topPadding = window?.safeAreaInsets.top
+    guard let padding = topPadding else { return 0.0}
+    return padding
+}

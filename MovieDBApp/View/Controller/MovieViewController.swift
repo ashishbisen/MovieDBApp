@@ -22,18 +22,18 @@ class MovieViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         label.textAlignment = .center
         label.textColor = .darkGray
-        label.text = APPName.appName.rawValue
+        label.text = Header.appName.rawValue
         return label
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         fetchPopularMovieList()
         fetchUpcomingMovieList()
+        addLabel()
         setupTableView()
-        label.frame = CGRect(x: 0, y: 16, width: UIScreen.main.bounds.width, height: 24)
-        view.addSubview(label)
         view.backgroundColor = .white
     }
     
@@ -58,7 +58,7 @@ class MovieViewController: UIViewController {
     // MARK: Setup tableview
     private func setupTableView() {
         
-        tableView.frame = CGRect(x: 0, y: label.frame.size.height + 32, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 32)
+        tableView.frame = CGRect(x: 0, y: label.frame.origin.y + label.frame.size.height + 8, width: screenWidth, height: screenHeight - 32)
         tableView.showsVerticalScrollIndicator = false
         view.addSubview(tableView)
         tableView.delegate = self
@@ -68,6 +68,12 @@ class MovieViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
+    }
+    
+    private func addLabel() {
+        
+        label.frame = CGRect(x: 0, y: calculateSafeAreaHeight() + 8, width: screenWidth, height: 24)
+        view.addSubview(label)
     }
 }
 
